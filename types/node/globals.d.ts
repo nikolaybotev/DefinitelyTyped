@@ -592,4 +592,26 @@ declare global {
      */
     var EventSource: typeof globalThis extends { onmessage: any; EventSource: infer T } ? T
         : typeof import("undici-types").EventSource;
+
+    /**
+     * @since v22.0.0
+     */
+    class Iterator<T, TReturn = any, TNext = undefined> {
+        static from<T>(object: Iterable<T>): Iterator<T>;
+        static from<T, TReturn = any, TNext = undefined>(object: Iterator<T, TReturn, TNext>): Iterator<T, TReturn, TNext>;
+
+        drop(limit: number): Iterator<T, TReturn, TNext>;
+        every(callback: (element: T, index: number) => boolean): boolean;
+        filter(callback: (element: T, index: number) => boolean): Iterator<T, TReturn, TNext>;
+        find(callback: (element: T, index: number) => boolean): T | undefined;
+        flatMap<U>(callback: (element: T, index: number) => Iterator<U> | Iterable<U>): Iterator<U, TReturn, TNext>;
+        forEach(callback: (element: T, index: number) => any): void;
+        map<U>(callback: (element: T, index: number) => U): Iterator<U, TReturn, TNext>;
+        reduce(callback: (accumulator: T, currentValue: T, currentIndex: number) => T): T;
+        reduce<U>(callback: (accumulator: U, currentValue: T, currentIndex: number) => U, initialValue: U): U;
+        some(callback: (element: T, index: number) => boolean): boolean;
+        take(limit: number): Iterator<T, TReturn, TNext>;
+        toArray(): T[];
+        [Symbol.iterator](): Iterator<T, TReturn, TNext>;
+    }
 }

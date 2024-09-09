@@ -67,3 +67,9 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     e.message; // $ExpectType string
     e.name; // $ExpectType string
 }
+
+{
+    // Type '{ next: () => { value: number; }; }' is missing the following properties from type 'Iterator<number, any, undefined>': drop, every, filter, find, and 8 more.ts(2740)
+    const nonHelper: Iterator<number> = { next: () => ({ value: 42 }) };
+    nonHelper.next();
+}
